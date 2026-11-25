@@ -1,0 +1,180 @@
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span>🚗</span>
+      <strong>MOBII Admin</strong>
+    </div>
+    <nav>
+      <a routerLink="/admin/usuarios" routerLinkActive="active">👥 Usuarios</a>
+    </nav>
+    <div class="sidebar-footer">
+      <span>{{ auth.getUsuario()?.nombre }}</span>
+      <button (click)="auth.logout()">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <div class="page-header">
+      <div>
+        <h2>Gestión de Usuarios</h2>
+        <p>Administra las cuentas registradas en MOBII</p>
+      </div>
+      <button class="btn-primary" (click)="abrirCrear()">+ Nuevo usuario</button>
+    </div>
+
+    <!-- Mensajes -->
+    <div class="alert success" *ngIf="exito">✓ {{ exito }}</div>
+    <div class="alert error" *ngIf="error && !mostrarModal">✗ {{ error }}</div>
+
+    <!-- Buscador -->
+    <div class="toolbar">
+      <input type="text" [(ngModel)]="filtro" placeholder="Buscar por nombre, email o rol..." />
+      <span class="count">{{ usuariosFiltrados.length }} usuario(s)</span>
+    </div>
+
+    <!-- Tabla -->
+    <div class="table-wrapper">
+      <div class="loading" *ngIf="loading">Cargando...</div>
+      <table *ngIf="!loading">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Registro</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of usuariosFiltrados">
+            <td>{{ u.id }}</td>
+            <td><strong>{{ u.nombre }}</strong></td>
+            <td>{{ u.email }}</td>
+            <td><span class="badge" [class.admin]="u.rol === 'admin'">{{ u.rol }}</span></td>
+            <td><span class="badge" [class.activo]="u.activo === 1" [class.inactivo]="u.activo === 0">
+              {{ u.activo === 1 ? 'Activo' : 'Inactivo' }}
+            </span></td>
+            <td>{{ u.created_at | slice:0:10 }}</td>
+            <td class="actions">
+              <button class="btn-info" (click)="abrirDetalle(u)">🔍 Ver más</button>
+              <button class="btn-edit" (click)="abrirEditar(u)">✏️ Editar</button>
+              <button class="btn-delete" (click)="eliminar(u)">🗑️ Eliminar</button>
+            </td>
+          </tr>
+          <tr *ngIf="usuariosFiltrados.length === 0">
+            <td colspan="7" class="empty">No se encontraron usuarios</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<!-- modal detalle usuario -->
+<div class="modal-overlay" *ngIf="mostrarDetalle" (click)="cerrarDetalle()">
+  <div class="modal modal-detalle" (click)="$event.stopPropagation()">
+
+    <div class="modal-header">
+      <div class="detalle-title">
+        <div class="detalle-avatar">{{ usuarioDetalle?.nombre?.charAt(0)?.toUpperCase() }}</div>
+        <div>
+          <h3>{{ usuarioDetalle?.nombre }}</h3>
+          <span class="detalle-email">{{ usuarioDetalle?.email }}</span>
+        </div>
+      </div>
+      <button class="modal-close" (click)="cerrarDetalle()">✕</button>
+    </div>
+
+    <div class="detalle-loading" *ngIf="loadingDetalle">Cargando datos...</div>
+
+    <div class="detalle-body" *ngIf="!loadingDetalle">
+
+      <!-- Accesibilidad -->
+      <div class="detalle-section">
+        <div class="detalle-section-title">♿ Accesibilidad</div>
+        <div class="detalle-card">
+          <span class="detalle-label">Tipo de discapacidad</span>
+          <span class="detalle-value" [class.vacio]="!usuarioDetalle?.discapacidad">
+            {{ usuarioDetalle?.discapacidad || 'No registrada' }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Contadores -->
+      <div class="detalle-counters">
+        <div class="counter-card">
+          <span class="counter-icon">🅿️</span>
+          <span class="counter-value">{{ favoritos.length }}</span>
+          <span class="counter-label">Parking favoritos</span>
+        </div>
+        <div class="counter-card">
+          <span class="counter-icon">🚕</span>
+          <span class="counter-value">{{ reservas.length }}</span>
+          <span class="counter-label">Citas reservadas</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="cerrarDetalle()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- modal crear/editar -->
+<div class="modal-overlay" *ngIf="mostrarModal" (click)="cerrarModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>{{ modoEdicion ? 'Editar usuario' : 'Nuevo usuario' }}</h3>
+      <button class="modal-close" (click)="cerrarModal()">✕</button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="guardar()">
+      <div class="field">
+        <label>Nombre *</label>
+        <input type="text" formControlName="nombre" placeholder="Nombre completo" />
+        <span class="field-error" *ngIf="form.get('nombre')!.invalid && form.get('nombre')!.touched">Obligatorio</span>
+      </div>
+      <div class="field">
+        <label>Email *</label>
+        <input type="email" formControlName="email" placeholder="correo@ejemplo.com" />
+        <span class="field-error" *ngIf="form.get('email')!.invalid && form.get('email')!.touched">Email inválido</span>
+      </div>
+      <div class="field">
+        <label>Contraseña {{ modoEdicion ? '(dejar vacío para no cambiar)' : '*' }}</label>
+        <input type="password" formControlName="password" placeholder="Mínimo 6 caracteres" />
+        <span class="field-error" *ngIf="form.get('password')!.invalid && form.get('password')!.touched">Mínimo 6 caracteres</span>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Rol *</label>
+          <select formControlName="rol">
+            <option value="usuario">Usuario</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <div class="field" *ngIf="modoEdicion">
+          <label>Estado</label>
+          <select formControlName="activo">
+            <option [ngValue]="true">Activo</option>
+            <option [ngValue]="false">Inactivo</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="alert error" *ngIf="error">{{ error }}</div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
+        <button type="submit" class="btn-primary" [disabled]="form.invalid">
+          {{ modoEdicion ? 'Guardar cambios' : 'Crear usuario' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

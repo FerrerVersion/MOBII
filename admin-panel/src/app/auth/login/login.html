@@ -1,0 +1,38 @@
+<div class="login-wrapper">
+  <div class="login-card">
+    <div class="logo">
+      <span class="logo-icon">🚗</span>
+      <h1>MOBII Admin</h1>
+      <p>Panel de Administración</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="field">
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="admin@mobii.com"
+               [class.invalid]="form.get('email')!.invalid && form.get('email')!.touched" />
+        <span class="field-error"
+              *ngIf="form.get('email')!.invalid && form.get('email')!.touched">
+          Introduce un email válido
+        </span>
+      </div>
+
+      <div class="field">
+        <label>Contraseña</label>
+        <input type="password" formControlName="password" placeholder="••••••••"
+               [class.invalid]="form.get('password')!.invalid && form.get('password')!.touched" />
+        <span class="field-error"
+              *ngIf="form.get('password')!.invalid && form.get('password')!.touched">
+          La contraseña es obligatoria
+        </span>
+      </div>
+
+      <div class="error-box" *ngIf="error">{{ error }}</div>
+
+      <button type="submit" [disabled]="loading">
+        <span *ngIf="!loading">Iniciar sesión</span>
+        <span *ngIf="loading">Accediendo...</span>
+      </button>
+    </form>
+  </div>
+</div>

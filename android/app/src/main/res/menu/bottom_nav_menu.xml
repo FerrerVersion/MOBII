@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_inicio"
+        android:icon="@drawable/ic_home"
+        android:title="Inicio" />
+    <item android:id="@+id/nav_parking"
+        android:icon="@drawable/ic_parking"
+        android:title="Parking" />
+    <item android:id="@+id/nav_actividades"
+        android:icon="@drawable/ic_activities"
+        android:title="Actividades" />
+    <item android:id="@+id/nav_taxis"
+        android:icon="@drawable/ic_taxi"
+        android:title="Taxi" />
+    <item android:id="@+id/nav_centros"
+        android:icon="@drawable/ic_center"
+        android:title="Centros" />
+</menu>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground">
+
+    <!-- Subheader -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorPrimary"
+        android:paddingStart="14dp" android:paddingEnd="14dp"
+        android:paddingTop="10dp" android:paddingBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🅿️  Aparcamientos Adaptados"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnVerTodos"
+                android:layout_width="0dp" android:layout_height="40dp"
+                android:layout_weight="1" android:layout_marginEnd="4dp"
+                android:text="📋 Todos"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:textColor="#FFFFFF" android:textSize="13sp"/>
+
+            <Button
+                android:id="@+id/btnVerFavoritos"
+                android:layout_width="0dp" android:layout_height="40dp"
+                android:layout_weight="1" android:layout_marginStart="4dp"
+                android:text="⭐ Favoritos"
+                android:backgroundTint="@color/azul_medio"
+                android:textColor="#FFFFFF" android:textSize="13sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Estado -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSurface">
+
+        <TextView
+            android:id="@+id/tvEstadoParking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Cargando..."
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp" android:textStyle="bold"
+            android:gravity="center"/>
+
+        <ProgressBar
+            android:id="@+id/progressBarParking"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:indeterminate="true"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/webViewParkingMapa"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fuente: Open Data Valencia"
+        android:textSize="10sp"
+        android:textColor="@color/colorTextSecondary"
+        android:gravity="center"
+        android:padding="4dp"
+        android:background="@color/colorBackground"/>
+</LinearLayout>

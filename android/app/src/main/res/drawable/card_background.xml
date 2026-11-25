@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- card_background.xml — fondo redondeado azul para las cards del menú -->
+<!-- RUTA: res/drawable/card_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#007ACC"/>
+    <corners android:radius="12dp"/>
+</shape>

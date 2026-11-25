@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Paleta principal (del logo) -->
+    <color name="colorPrimary">#5B6EE1</color>
+    <color name="colorPrimaryDark">#4A5CC8</color>
+    <color name="colorSecondary">#00C9A7</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorSurface">#F5F7FF</color>
+    <color name="colorTextPrimary">#1A1A2E</color>
+    <color name="colorTextSecondary">#607D8B</color>
+    <color name="colorDivider">#EEEEEE</color>
+    <color name="colorNavSelected">#5B6EE1</color>
+    <color name="colorNavUnselected">#9E9E9E</color>
+
+    <!-- Compat (legado) -->
+    <color name="azul_oscuro">#5B6EE1</color>
+    <color name="azul_medio">#7B8EF5</color>
+    <color name="azul_claro">#EEF0FC</color>
+    <color name="fondo">#FFFFFF</color>
+    <color name="blanco">#FFFFFF</color>
+    <color name="gris">#888888</color>
+    <color name="rojo">#D32F2F</color>
+    <color name="verde">#00C9A7</color>
+</resources>

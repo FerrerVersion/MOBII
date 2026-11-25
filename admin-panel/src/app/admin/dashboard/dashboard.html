@@ -1,0 +1,77 @@
+<div class="admin-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span>🚗</span>
+      <strong>MOBII Admin</strong>
+    </div>
+    <nav>
+      <a routerLink="/admin/usuarios" routerLinkActive="active">👥 Usuarios</a>
+      <a routerLink="/admin/dashboard" routerLinkActive="active">📊 Dashboard</a>
+    </nav>
+    <div class="sidebar-footer">
+      <span>{{ auth.getUsuario()?.nombre }}</span>
+      <button (click)="auth.logout()">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <div>
+        <h2>Dashboard</h2>
+        <p>Resumen general del sistema MOBII</p>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-info">
+          <span class="stat-value">{{ total }}</span>
+          <span class="stat-label">Usuarios totales</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-info">
+          <span class="stat-value">{{ activos }}</span>
+          <span class="stat-label">Usuarios activos</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔑</div>
+        <div class="stat-info">
+          <span class="stat-value">{{ admins }}</span>
+          <span class="stat-label">Administradores</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📱</div>
+        <div class="stat-info">
+          <span class="stat-value">{{ total - activos }}</span>
+          <span class="stat-label">Cuentas inactivas</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Últimos registros</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th><th>Email</th><th>Rol</th><th>Registro</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let u of ultimosUsuarios">
+              <td><strong>{{ u.nombre }}</strong></td>
+              <td>{{ u.email }}</td>
+              <td><span class="badge" [class.admin]="u.rol === 'admin'">{{ u.rol }}</span></td>
+              <td>{{ u.created_at | slice:0:10 }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>

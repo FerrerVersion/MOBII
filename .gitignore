@@ -1,0 +1,29 @@
+# Sistema
+.DS_Store
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Angular
+admin-panel/.angular/
+admin-panel/dist/
+
+# Base de datos local de la API (se crea al arrancar)
+backend/db/*.db
+backend/db/*.db-shm
+backend/db/*.db-wal
+
+# Variables de entorno
+.env
+.env.*
+
+# Android
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+*.iml
+*.jks
+*.keystore

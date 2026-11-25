@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#7C8EFF</color>
+    <color name="colorPrimaryDark">#5B6EE1</color>
+    <color name="colorSecondary">#00E5C3</color>
+    <color name="colorBackground">#121218</color>
+    <color name="colorSurface">#1E1E2E</color>
+    <color name="colorTextPrimary">#EAEAF8</color>
+    <color name="colorTextSecondary">#9E9EBE</color>
+    <color name="colorDivider">#2A2A3E</color>
+    <color name="colorNavSelected">#7C8EFF</color>
+    <color name="colorNavUnselected">#666688</color>
+    <!-- Compat -->
+    <color name="azul_oscuro">#7C8EFF</color>
+    <color name="azul_medio">#9AABFF</color>
+    <color name="azul_claro">#1E1E2E</color>
+    <color name="fondo">#121218</color>
+    <color name="blanco">#EAEAF8</color>
+    <color name="gris">#9E9EBE</color>
+    <color name="rojo">#FF6B6B</color>
+    <color name="verde">#00E5C3</color>
+</resources>
